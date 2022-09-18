@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { jsPDF } from "jspdf";
 
 // const nySpace = "/\\s+/";
 const TextRoom = (props) => {
@@ -36,6 +37,23 @@ const TextRoom = (props) => {
     //callback();
   };
 
+  const handleCopy = () => {
+    let textBox = document.getElementById("textbox");
+    textBox.select();
+    navigator.clipboard.writeText(textBox.value);
+  };
+
+  const handlePDF = () => {
+    const doc = new jsPDF();
+    doc.text(text, 10, 10);
+    doc.save("a4.pdf");
+  };
+
+  const handleExtraSpace = () => {
+    let newText = text.split(/[ ]+/);
+    settext(newText.join(" "));
+  };
+
   // function callme() {
   //   console.log(text);
   // }
@@ -57,10 +75,11 @@ const TextRoom = (props) => {
   // };
   return (
     <>
-      <div className="container">
+      <div className="container my-2">
         <div className="mb-3">
           <h2>{props.heading}</h2>
           <textarea
+            id="textbox"
             className="form-control"
             rows="7"
             value={text}
@@ -78,6 +97,19 @@ const TextRoom = (props) => {
             onClick={clickClearHandle}
           >
             Click to Clear
+          </button>
+          <button className="btn btn-primary mt-2 mx-1" onClick={handleCopy}>
+            Click to Copy
+          </button>
+
+          <button className="btn btn-primary mt-2 mx-1" onClick={handlePDF}>
+            Get PDF
+          </button>
+          <button
+            className="btn btn-primary mt-2 mx-1"
+            onClick={handleExtraSpace}
+          >
+            Remove extra space
           </button>
           <button
             className="btn btn-primary mt-2 mx-1"
