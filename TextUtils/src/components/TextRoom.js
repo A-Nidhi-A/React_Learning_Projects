@@ -19,15 +19,18 @@ const TextRoom = (props) => {
   const clickUpHandle = () => {
     console.log("button clicked");
     settext(text.toUpperCase());
+    props.showAlert("Converted to uppercase", "success");
   };
 
   const clickLoHandle = () => {
     console.log("button clicked");
     settext(text.toLowerCase());
+    props.showAlert("Converted to lowercase", "success");
   };
 
   const clickClearHandle = () => {
     settext("");
+    props.showAlert("Text Cleared", "success");
   };
 
   const clickToFindAndReplace = () => {
@@ -41,17 +44,20 @@ const TextRoom = (props) => {
     let textBox = document.getElementById("textbox");
     textBox.select();
     navigator.clipboard.writeText(textBox.value);
+    props.showAlert("Text Copied", "success");
   };
 
   const handlePDF = () => {
     const doc = new jsPDF();
     doc.text(text, 10, 10);
     doc.save("a4.pdf");
+    props.showAlert("PDF Downloaded", "success");
   };
 
   const handleExtraSpace = () => {
     let newText = text.split(/[ ]+/);
     settext(newText.join(" "));
+    props.showAlert("Extra space removed", "success");
   };
 
   // function callme() {
@@ -84,6 +90,10 @@ const TextRoom = (props) => {
             rows="7"
             value={text}
             onChange={onChangeHandle}
+            style={{
+              background: props.mode == "light" ? "white" : "grey",
+              color: props.mode == "light" ? "black" : "white",
+            }}
           ></textarea>
           <button className="btn btn-primary mt-2 mx-1" onClick={clickUpHandle}>
             Click for Uppercase

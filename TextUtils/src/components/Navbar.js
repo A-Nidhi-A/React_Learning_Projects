@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 
 export default function Navbar(props) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav
+      className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
+    >
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           {props.title}
@@ -43,6 +45,59 @@ export default function Navbar(props) {
               Search
             </button>
           </form> */}
+          <input id="colorpicker" type="color" />
+
+          <div
+            class={`form-check form-switch text-${
+              props.mode != "light" ? "light" : "dark"
+            }`}
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+              onClick={() => props.toggleFunc("black")}
+            />
+
+            <label class="form-check-label" for="flexSwitchCheckDefault">
+              Enable {props.mode != "light" ? "light" : "dark"} Mode
+            </label>
+          </div>
+
+          <div
+            class={`form-check form-switch text-${
+              props.mode != "light" ? "light" : "dark"
+            }`}
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefaultBlue"
+              onClick={() => props.toggleFunc("blue")}
+            />
+            <label class="form-check-label" for="flexSwitchCheckDefaultBlue">
+              Enable Blue Mode
+            </label>
+          </div>
+
+          <div
+            class={`form-check form-switch text-${
+              props.mode != "light" ? "light" : "dark"
+            }`}
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefaultRed"
+              onClick={() => props.toggleFunc("red")}
+            />
+            <label class="form-check-label" for="flexSwitchCheckDefaultRed">
+              Enable Red Mode
+            </label>
+          </div>
         </div>
       </div>
     </nav>
