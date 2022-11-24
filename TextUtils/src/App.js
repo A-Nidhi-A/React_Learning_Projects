@@ -1,9 +1,12 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import "./App.css";
 import About from "./components/About";
 import Alert from "./components/Alert";
 import Navbar from "./components/Navbar";
 import TextRoom from "./components/TextRoom";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [Mode, setMode] = useState("light");
@@ -19,23 +22,18 @@ function App() {
     }, 1500);
   };
 
-  let myInterval = null;
+  const setLight = () => {
+    setMode("light");
+  };
+
   const toggleMode = (color) => {
     if (Mode === "light") {
       setMode("dark");
-
-      // let bgColor = document.getElementById("colorpicker");
-      // bgColor.click();
-
-      // myInterval = setInterval(() => {
-      //   document.body.style.backgroundColor = bgColor.value;
-      // }, 200);
 
       document.body.style.backgroundColor = color;
       document.body.style.color = "White";
       showAlert("Dark Mode Enabled", "success");
     } else {
-      // clearInterval(myInterval);
       setMode("light");
       document.body.style.backgroundColor = "white";
       document.body.style.color = "Black";
@@ -43,21 +41,56 @@ function App() {
     }
   };
   return (
-    <>
+    <BrowserRouter>
       <Navbar
         title="TextUtils"
         aboutInfo="About Us"
         mode={Mode}
         toggleFunc={toggleMode}
+        setLightBag={setLight}
       />
       <Alert alertM={alertMsg} />
-      <TextRoom
-        heading="Enter the text to analyse here"
-        mode={Mode}
-        showAlert={showAlert}
-      />
-      {/* <About /> */}
-    </>
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            <TextRoom
+              heading="Enter the text to analyse here"
+              mode={Mode}
+              showAlert={showAlert}
+            />
+          }
+        />
+        <Route exact path="/About" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+
+    // <Router>
+    //   <div>
+    //     <Navbar
+    //       title="TextUtils"
+    //       aboutInfo="About Us"
+    //       mode={Mode}
+    //       toggleFunc={toggleMode}
+    //       setLightBag={setLight}
+    //     />
+    //     <Alert alertM={alertMsg} />
+
+    //     <Switch>
+    //       <Route exact path="/About">
+    //         <About />
+    //       </Route>
+    //       <Route exact path="/">
+    //         <TextRoom
+    //           heading="Enter the text to analyse here"
+    //           mode={Mode}
+    //           showAlert={showAlert}
+    //         />
+    //       </Route>
+    //     </Switch>
+    //   </div>
+    // </Router>
   );
 }
 
