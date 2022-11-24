@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./App.css";
-import About from "./components/About";
+// import About from "./components/About";
 import Alert from "./components/Alert";
 import Navbar from "./components/Navbar";
 import TextRoom from "./components/TextRoom";
@@ -41,7 +41,7 @@ function App() {
     }
   };
   return (
-    <BrowserRouter>
+    <div>
       <Navbar
         title="TextUtils"
         aboutInfo="About Us"
@@ -49,22 +49,39 @@ function App() {
         toggleFunc={toggleMode}
         setLightBag={setLight}
       />
+
       <Alert alertM={alertMsg} />
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={
-            <TextRoom
-              heading="Enter the text to analyse here"
-              mode={Mode}
-              showAlert={showAlert}
-            />
-          }
-        />
-        <Route exact path="/About" element={<About />} />
-      </Routes>
-    </BrowserRouter>
+
+      <TextRoom
+        heading="Enter the text to analyse here"
+        mode={Mode}
+        showAlert={showAlert}
+      />
+    </div>
+    // <BrowserRouter>
+    //   <Navbar
+    //     title="TextUtils"
+    //     aboutInfo="About Us"
+    //     mode={Mode}
+    //     toggleFunc={toggleMode}
+    //     setLightBag={setLight}
+    //   />
+    //   <Alert alertM={alertMsg} />
+    //   <Routes>
+    //     <Route
+    //       exact
+    //       path="/"
+    //       element={
+    //         <TextRoom
+    //           heading="Enter the text to analyse here"
+    //           mode={Mode}
+    //           showAlert={showAlert}
+    //         />
+    //       }
+    //     />
+    //     <Route exact path="/About" element={<About />} />
+    //   </Routes>
+    // </BrowserRouter>
 
     // <Router>
     //   <div>
