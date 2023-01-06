@@ -83,7 +83,7 @@ const TextRoom = (props) => {
     <>
       <div className="container my-2">
         <div className="mb-3">
-          <h2>{props.heading}</h2>
+          <h2 className="my-4">{props.heading}</h2>
           <textarea
             id="textbox"
             className="form-control"
@@ -95,35 +95,54 @@ const TextRoom = (props) => {
               color: props.mode == "light" ? "black" : "white",
             }}
           ></textarea>
-          <button className="btn btn-primary mt-2 mx-1" onClick={clickUpHandle}>
+          <button
+            className="btn btn-primary mt-2 mx-1"
+            onClick={clickUpHandle}
+            disabled={text.length == 0}
+          >
             Click for Uppercase
           </button>
 
-          <button className="btn btn-primary mt-2 mx-1" onClick={clickLoHandle}>
+          <button
+            className="btn btn-primary mt-2 mx-1"
+            onClick={clickLoHandle}
+            disabled={text.length == 0}
+          >
             Click for LowerCase
           </button>
           <button
             className="btn btn-primary mt-2 mx-1"
             onClick={clickClearHandle}
+            disabled={text.length == 0}
           >
             Click to Clear
           </button>
-          <button className="btn btn-primary mt-2 mx-1" onClick={handleCopy}>
+          <button
+            className="btn btn-primary mt-2 mx-1"
+            onClick={handleCopy}
+            disabled={text.length == 0}
+          >
             Click to Copy
           </button>
 
-          <button className="btn btn-primary mt-2 mx-1" onClick={handlePDF}>
+          <button
+            className="btn btn-primary mt-2 mx-1"
+            onClick={handlePDF}
+            disabled={text.length == 0}
+          >
             Get PDF
           </button>
           <button
             className="btn btn-primary mt-2 mx-1"
             onClick={handleExtraSpace}
+            disabled={text.length == 0}
           >
             Remove extra space
           </button>
           <button
             className="btn btn-primary mt-2 mx-1"
             onClick={clickToFindAndReplace}
+            disabled={text.length == 0}
           >
             Click To Find and Replace
           </button>
@@ -133,13 +152,19 @@ const TextRoom = (props) => {
         <h2>Your Text summary</h2>
         <p>
           {text.trim().length > 0
-            ? text.trim().split(" ").length
+            ? text.trim().split(/\s+/).length
             : text.trim().length}{" "}
           words {text.replaceAll(" ", "").length} characters
         </p>
-        <p>Time taken to read {0.008 * text.trim().split(" ").length}</p>
+        <p>
+          Time taken to read{" "}
+          {0.008 *
+            text.split(" ").filter((element) => {
+              return element.length != 0;
+            }).length}
+        </p>
         <h2>Preview</h2>
-        <p>{text}</p>
+        <p>{text.length > 0 ? text : "Nothing to preview"}</p>
       </div>
     </>
   );

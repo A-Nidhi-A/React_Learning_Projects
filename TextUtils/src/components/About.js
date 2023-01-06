@@ -1,32 +1,41 @@
 import React, { useState } from "react";
 
-export default function About() {
-  const [themeStyle, setTheme] = useState({
-    color: "black",
-    backgroundColor: "white",
-  });
-
-  const [buttonText, setButtonText] = useState("Dark Theme");
-
-  let toggleTheme = () => {
-    if (themeStyle.backgroundColor === "white") {
-      setTheme({
-        color: "white",
-        backgroundColor: "black",
-        border: "1px solid white",
-      });
-      setButtonText("Light Theme");
-    } else {
-      setTheme({
-        color: "black",
-        backgroundColor: "white",
-      });
-      setButtonText("Dark Theme");
-    }
+export default function About(props) {
+  let themeStyle = {
+    color: props.mode == "dark" ? "white" : "black",
+    backgroundColor: props.mode == "dark" ? "#04518f" : "white",
+    border: "1px solid",
+    borderColor: props.mode == "dark" ? "white" : "black",
   };
+  // const [themeStyle, setTheme] = useState({
+  //   color: "black",
+  //   backgroundColor: "white",
+  // });
+
+  // const [buttonText, setButtonText] = useState("Dark Theme");
+
+  // let toggleTheme = () => {
+  //   if (themeStyle.backgroundColor === "white") {
+  //     setTheme({
+  //       color: "white",
+  //       backgroundColor: "black",
+  //       border: "1px solid white",
+  //     });
+  //     setButtonText("Light Theme");
+  //   } else {
+  //     setTheme({
+  //       color: "black",
+  //       backgroundColor: "white",
+  //     });
+  //     setButtonText("Dark Theme");
+  //   }
+  // };
   return (
-    <div className="container my-3" style={themeStyle}>
-      <h2 className="my-2">Welcome to About page</h2>
+    <div
+      className="container my-3"
+      style={{ color: props.mode == "dark" ? "white" : "black" }}
+    >
+      <h2 className="my-4">Welcome to About page</h2>
       <div className="accordion" id="accordionExample">
         <div className="accordion-item">
           <h2 className="accordion-header" id="headingOne">
@@ -124,11 +133,6 @@ export default function About() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="container my-2">
-        <button type="button" className="btn btn-primary" onClick={toggleTheme}>
-          {buttonText}
-        </button>
       </div>
     </div>
   );
